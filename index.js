@@ -67,6 +67,10 @@ exports.parse = function (string) {
 
 exports.stringify = function (object) {
 
+	if (typeof object.toJSON === 'function') {
+		object = object.toJSON();
+	}
+
 	var nodes = object.nodes || [];
 	var edges = object.edges || [];
 	var lines = [];
