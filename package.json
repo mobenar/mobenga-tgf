@@ -1,0 +1,26 @@
+{
+  "name": "mobenga-tgf",
+  "version": "0.9.0",
+  "description": "TGF (Trivial Graph Format) parser and stringifier",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mobenar/mobenga-tgf"
+  },
+  "keywords": [
+    "tgf",
+    "format",
+    "parse",
+    "stringify",
+    "graph"
+  ],
+  "author": "Tomas Enarsson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mobenar/mobenga-tgf/issues"
+  },
+  "homepage": "https://github.com/mobenar/mobenga-tgf"
+}
