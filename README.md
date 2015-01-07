@@ -1,4 +1,3 @@
-tgf
-===
+# TGF
 
-TGF (Trivial Graph Format) parser and stringifier
+TGF (Trivial Graph Format) parser and stringifier.
