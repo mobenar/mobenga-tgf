@@ -17,46 +17,51 @@ exports.parse = function (string) {
 
 	var nodes = [];
 	var edges = [];
-	var parts = string.split(/\r?\n#\r?\n/);
-	var lineBreak = /\r?\n/;
+	var parts = string.split(/^\s*#\s*$/m);
 	var lineNumber = 1;
 
 	if (parts.length !== 2) {
 		throw new SyntaxError(errorMessage());
 	}
 
-	parts[0].split(lineBreak).forEach(function (line) {
+	function match(string, regexp, callback) {
 
-		var matches = line.match(/^(\d+) (.+)$/);
+		string.split(/\r?\n/).forEach(function (line) {
 
-		if (!matches) {
-			throw new SyntaxError(errorMessage(lineNumber, line));
-		}
+			var matches;
+
+			line = line.trim();
+
+			if (line.length) {
+				matches = line.match(regexp);
+
+				if (!matches) {
+					throw new SyntaxError(errorMessage(lineNumber, line));
+				}
+
+				callback.apply(null, matches);
+			}
+
+			lineNumber++;
+		});
+	}
+
+	match(parts[0], /^(\d+)\s+(.+)$/, function (all, id, label) {
 
 		nodes.push({
-			id: parseInt(matches[1], 10),
-			label: matches[2]
+			id: parseInt(id, 10),
+			label: label
 		});
-
-		lineNumber++;
 	});
 
 	lineNumber++;
 
-	parts[1].split(lineBreak).forEach(function (line) {
-
-		var matches = line.match(/^(\d+) (\d+)$/);
-
-		if (!matches) {
-			throw new SyntaxError(errorMessage(lineNumber, line));
-		}
+	match(parts[1], /^(\d+)\s+(\d+)$/, function (all, source, target) {
 
 		edges.push({
-			source: parseInt(matches[1], 10),
-			target: parseInt(matches[2], 10)
+			source: parseInt(source, 10),
+			target: parseInt(target, 10)
 		});
-
-		lineNumber++;
 	});
 
 	return {
