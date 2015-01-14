@@ -2,7 +2,7 @@
  * Parses TGF string.
  *
  * @param {String} string
- * @returns {{nodes: Object[], edges: Object[]}}
+ * @returns {Object}
  */
 exports.parse = function (string) {
 
@@ -62,9 +62,9 @@ exports.parse = function (string) {
 };
 
 /**
- * Stringifies a TGF object.
+ * Stringifies TGF object.
  *
- * @param {{nodes: Object[], edges: Object[}} object
+ * @param {Object} object
  * @param {Object} [options]
  * @returns {String}
  */
