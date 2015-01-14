@@ -1,18 +1,9 @@
-function errorMessage(lineNumber, line) {
-
-	var message = 'TGF parse error';
-
-	if (lineNumber) {
-		message += ', line ' + lineNumber;
-	}
-
-	if (line) {
-		message += ': ' + line;
-	}
-
-	return message;
-}
-
+/**
+ * Parses TGF string.
+ *
+ * @param {String} string
+ * @returns {{nodes: Object[], edges: Object[]}}
+ */
 exports.parse = function (string) {
 
 	var nodes = [];
@@ -70,11 +61,20 @@ exports.parse = function (string) {
 	};
 };
 
-exports.stringify = function (object) {
+/**
+ * Stringifies a TGF object.
+ *
+ * @param {{nodes: Object[], edges: Object[}} object
+ * @param {Object} [options]
+ * @returns {String}
+ */
+exports.stringify = function (object, options) {
 
 	if (typeof object.toJSON === 'function') {
 		object = object.toJSON();
 	}
+
+	options = options || {};
 
 	var nodes = object.nodes || [];
 	var edges = object.edges || [];
@@ -92,5 +92,20 @@ exports.stringify = function (object) {
 		lines.push('' + edge.source + ' ' + edge.target);
 	});
 
-	return lines.join('\n');
+	return lines.join(options.lineBreak || '\n');
 };
+
+function errorMessage(lineNumber, line) {
+
+	var message = 'TGF parse error';
+
+	if (lineNumber) {
+		message += ', line ' + lineNumber;
+	}
+
+	if (line) {
+		message += ': ' + line;
+	}
+
+	return message;
+}
