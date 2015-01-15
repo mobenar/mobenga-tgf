@@ -1,14 +1,15 @@
 /**
  * Parses TGF string.
  *
- * @param {String} string
+ * @param {String} tgf
  * @returns {Object}
+ * @throws {SyntaxError}
  */
-exports.parse = function (string) {
+exports.parse = function parse(tgf) {
 
 	var nodes = [];
 	var edges = [];
-	var parts = string.split(/^\s*#\s*$/m);
+	var parts = tgf.split(/^\s*#\s*$/m);
 	var lineNumber = 1;
 
 	if (parts.length !== 2) {
@@ -64,20 +65,20 @@ exports.parse = function (string) {
 /**
  * Stringifies TGF object.
  *
- * @param {Object} object
+ * @param {Object} graph
  * @param {Object} [options]
  * @returns {String}
  */
-exports.stringify = function (object, options) {
+exports.stringify = function stringify(graph, options) {
 
-	if (typeof object.toJSON === 'function') {
-		object = object.toJSON();
+	if (typeof graph.toJSON === 'function') {
+		graph = graph.toJSON();
 	}
 
 	options = options || {};
 
-	var nodes = object.nodes || [];
-	var edges = object.edges || [];
+	var nodes = graph.nodes || [];
+	var edges = graph.edges || [];
 	var lines = [];
 
 	nodes.forEach(function (node) {
